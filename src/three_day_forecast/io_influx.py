@@ -8,7 +8,7 @@ from . import ThreeDayForecast
 def convert_three_day_forecast_to_influx_points(forecast: ThreeDayForecast) -> list[influxdb_client.Point]:
     points = []
 
-    now = datetime.datetime.strptime('00:00:00 2024-May-13', '%H:%M:%S %Y-%b-%d')
+    now = datetime.datetime.now()
 
     for kp in forecast.kp_forecast():
         kp_date_normalized = datetime.datetime.strptime(
