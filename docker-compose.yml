@@ -1,0 +1,30 @@
+version: '3'
+services:
+  influxdb:
+    image: influxdb:latest
+    volumes:
+      # Mount for influxdb data directory and configuration
+      - /home/svl/influxdb2:/var/lib/influxdb2:rw
+    ports:
+      - "8086:8086"
+  web:
+    image: nginx
+    volumes:
+     - ./data:/var/www/
+     - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:80"
+  importer:
+    image: sebastianrzk/nasa-aurora-forecast-to-influx-exporter
+    environment:
+      # Insert your influx config here
+      - INFLUX_BUCKET_NAME=
+      - INFLUX_ORG_NAME=
+      - INFLUX_AUTH_TOKEN=
+      - INFLUX_URL=http://influxdb:8086
+      # replace if you go live
+      - DATA_SOURCE=http://web
+      #- DATA_SOURCE=https://services.swpc.noaa.gov/
+    depends_on:
+      - influxdb
+      - web
