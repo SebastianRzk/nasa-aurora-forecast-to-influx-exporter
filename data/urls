@@ -1,0 +1,32 @@
+kindex
+https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json
+
+scales
+https://services.swpc.noaa.gov/products/noaa-scales.json
+
+10cm flux
+https://services.swpc.noaa.gov/products/summary/10cm-flux.json
+
+
+solar wind magnetic field
+https://services.swpc.noaa.gov/products/summary/solar-wind-mag-field.json
+
+solar wind speed
+https://services.swpc.noaa.gov/products/summary/solar-wind-speed.json
+
+3-day forcast
+https://services.swpc.noaa.gov/text/3-day-forecast.txt
+ 
+
+7-tage-proton
+https://services.swpc.noaa.gov/json/goes/primary/integral-protons-7-day.json
+
+6-stunden-proton
+https://services.swpc.noaa.gov/json/goes/primary/integral-protons-6-hour.json
+
+6-stunden-xray
+https://services.swpc.noaa.gov/json/goes/secondary/xrays-6-hour.json
+
+7-tage-xray
+https://services.swpc.noaa.gov/json/goes/secondary/xrays-7-day.json
+
