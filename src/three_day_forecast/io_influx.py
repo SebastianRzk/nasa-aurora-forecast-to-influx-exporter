@@ -7,14 +7,10 @@ from . import ThreeDayForecast
 
 def convert_three_day_forecast_to_influx_points(forecast: ThreeDayForecast) -> list[influxdb_client.Point]:
     points = []
-
-    now = datetime.datetime.now()
+    now = datetime.datetime.now().date()
 
     for kp in forecast.kp_forecast():
-        kp_date_normalized = datetime.datetime.strptime(
-            f'00:00:00 {kp.start_time().year}-{kp.start_time().month}-{kp.start_time().day}'
-            , '%H:%M:%S %Y-%m-%d')
-        day_delta = kp_date_normalized - now
+        day_delta = kp.start_time().date() - now
         measurement_name = f"three-day-forecast-day-{day_delta.days}"
         points.append(
             influxdb_client.Point(measurement_name=measurement_name)
