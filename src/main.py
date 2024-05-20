@@ -1,6 +1,9 @@
+import logging
+
 import requests
 
 import influx_adapter
+from env import get_from_env
 from historic_k_index import historic_k_status
 from historic_k_index.io_influx import convert_historic_data_to_influx_points
 from historic_k_index.parser import parse_historic_k_data
@@ -9,7 +12,6 @@ from status.to_influx import convert_status_to_influx_pojnts
 from three_day_forecast import three_day_forecast_status
 from three_day_forecast.io_influx import convert_three_day_forecast_to_influx_points
 from three_day_forecast.parser import parse_3_day_forecast
-from env import get_from_env
 
 
 def save_three_day_forecast(influx_port: influx_adapter.InfluxWriter) -> Status:
@@ -39,8 +41,13 @@ def save_stats(influx_port: influx_adapter.InfluxWriter, status: list[Status]):
     influx_port.write_points([status_influx])
 
 
-influx_writer = influx_adapter.InfluxWriter()
-status = [
-    save_three_day_forecast(influx_port=influx_writer),
-    save_historic_k_value(influx_port=influx_writer)]
-save_stats(status=status, influx_port=influx_writer)
+if __name__ == "__main__":
+    logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
+
+    logging.info('export to influx has been started')
+    influx_writer = influx_adapter.InfluxWriter()
+    status = [
+        save_three_day_forecast(influx_port=influx_writer),
+        save_historic_k_value(influx_port=influx_writer)]
+    save_stats(status=status, influx_port=influx_writer)
+    logging.info('export to influx has been finished')
